@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Hello World!</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jsloader.js"></script>
+    <script type="text/javascript" src="js/loadlib.js"></script>
+    <script type="text/javascript" src="js/application.js"></script>
+
+    <script type="text/javascript">
+
+      // Minimize the window
+      //win.minimize();
+
+      // Unlisten the minimize event
+      //win.removeAllListeners('minimize');
+
+      // Create a new window and get it
+      // var new_win = gui.Window.open('http://www.qzhsoft.com', {
+      //   position: 'center',
+      //   width: 901,
+      //   height: 127,
+      //   toolbar: false,
+      //   title:'mrlong龙王爷',
+      //   frame: true
+      // });
+
+      // // And listen to new window's focus event
+      // new_win.on('focus', function() {
+      //   console.log('New window is focused');
+      // });
+
+      // new_win.on('close',function(){
+
+      // });
+
+      gcurwin.maximize();
+      var menu = new gui.Menu();
+      var bmenu = new gui.MenuItem({ label: 'Item B' });
+      bmenu.on('click',function(){alert('ssssss');});
+      // Iterate menu's items
+      for (var i = 0; i < menu.items.length; ++i) {
+        console.log(menu.items[i]);
+      }
+
+      var your_menu = new gui.Menu({ type: 'menubar' });
+      your_menu.append(new gui.MenuItem({ label: 'Item A' }));
+      your_menu.append(bmenu);
+      your_menu.append(new gui.MenuItem({ type: 'separator' }));
+      your_menu.append(new gui.MenuItem({ label: 'Item C' }));
+      your_menu.append(new gui.MenuItem({ type: 'checkbox', label: 'box1' }));
+      gcurwin.menu = your_menu;
+
+      var tray = new gui.Tray({ title: 'Tray', icon: 'icon.png' });
+      tray.menu = your_menu;
+
+      tray.on('click', function() {
+        gcurwin.show();
+      });
+
+      gcurwin.on('closed',function(){
+          tray.remove();
+          tray = null; 
+      });
+
+      gcurwin.on('minimize', function() {
+        this.hide();
+        console.log('Window is minimized');
+      });  
+
+      onload = function() {
+        gcurwin.show();
+      }
+
+
+      //gui.Shell.openExternal('http://www.qzhsoft.com');
+      $(function(){
+        $("#exitapp").on('click',function(){
+            gui.App.quit();
+        });
+
+        
+      })
+
+      /*var new_win = gui.Window.open('http://fmbip.com/', {
+       position: 'center',
+       width: 901,
+       height: 127,
+       toolbar: true,
+       title:'mrlong龙王爷'
+      }); */
+
+    </script>
+  </head>
+  <body>
+    <div class="row">
+    <div class="col-md-10" style="padding-right: 10px;">
+
+      <div class="row" style="padding-bottom:5px;">
+        <div class="col-md-2" style="padding-left: 15px;"> 
+          <div class="input-group"> 
+            <select id="country" class="form-control" style="width: 120px;">
+              <option>中国</option>
+              <option>其他</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2"> 
+          <div class="input-group"> 
+            <select id="searchname" class="form-control" style="width: 140px;">
+              <option>baidu</option>
+              <option>google</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon">搜索内容</span>
+            <input type="text" class="form-control" placeholder="例如:图书馆 浙江" id="searchtext">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" id="dosearch" >Go!</button>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="input-group">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success" id="dopickmail">抽取企业邮箱</button>
+            </div>
+          </div>  
+        </div>  
+ 
+      </div>
+
+      <iframe id="searchweb" src="" style="width: 100%;" nwdisable nwfaketop></iframe>
+      <br><span id="msgtxt" style="color:green"></span> 
+      <div class="progress progress-striped">
+        <div class="progress-bar"  role="progressbar" aria-valuemin="0" aria-valuemax="100"
+          style="width: 0%">
+        <span class="sr-only">45% Complete</span>
+        </div>
+      </div>
+      <!-- 搜索结果 -->
+      <article id="searchrow" class="table-responsive">
+        <!--  -->
+        <table style="widht:100%;" class="table table-bordered table-hover table-condensed">
+          <thead>
+            <tr>
+              <th width="30">#</th>
+              <th width="300">标题</th>
+              <th width="600">内容</th>
+              <th width="200">网站</th>
+            </tr>  
+          </thead>
+          <tbody>
+            <!-- 增加的内容 -->
+          </tbody>  
+        </table>  
+      </article>
+
+    </div>
+    <!-- end col-md-9 -->
+    <div class="col-md-2" style="padding-left: 0px;">
+      <div class="panel panel-info">
+        
+        <div class="panel-heading">
+          <h3 class="panel-title">Panel title</h3>
+          <input type="button" class="btn btn-danger btn-sm" id="exitapp" value="关闭"><br>
+        </div>
+        
+        <div class="panel-body">
+          Panel content
+        </div>
+        
+        <div class="panel-footer">
+          We are using 版本:<script>document.write(process.version)</script>.
+        </div>
+      </div>
+     
+    </div>
+    <!-- end col-md-3 -->
+  </div>
+   
+
+  </body>
+
+  <footer>作者:mrlong  <time pubdate datetime="2013-9-20">2013-9-16</time></footer>
+
+</html>

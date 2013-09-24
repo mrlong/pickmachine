@@ -1,0 +1,36 @@
+/*
+/ 
+/ 作者：龙仕云 2013-9-15
+/  
+*/
+
+/*body内容*/
+body{
+  padding-left:10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  margin-left:0px;
+  margin-right:0px;
+}
+.col-md-1,.col-md-2,.col-md-3,
+.col-md-4,.col-md-5,.col-md-6{
+	 padding-left: 0px;
+}
+
+/*提取邮箱的信息*/
+.pmmsg{
+	color: #FF3333;
+}
+
+/*邮箱列表*/
+.mailto{
+	padding-right: 8px;
+}
+
+tr{
+	/*line-height:150%;*/
+}
+
+td{
+	/*line-height:0;*/
+}

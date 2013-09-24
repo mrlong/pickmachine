@@ -1,0 +1,41 @@
+/////////////////////////////////////////////////
+// 作者:龙仕云 2013-9-14
+// 一行一个文件名
+//
+//
+/////////////////////////////////////////////////
+
+index.html   //主页面
+package.json //配置文件
+icon.png     //图标
+
+
+//第三方包文件
+js/jsloader.js
+js/jquery-2.0.3.min.js
+js/application.js        //公共模块
+js/loadlib.js
+js/main.css
+js/jquery.dataTables.min.js
+js/jquery.artDialog.js
+
+//bootstrap
+js/bootstrap/js/bootstrap.js
+js/bootstrap/css/bootstrap.css
+js/bootstrap/fonts/glyphicons-halflings-regular.eot
+js/bootstrap/fonts/glyphicons-halflings-regular.svg
+js/bootstrap/fonts/glyphicons-halflings-regular.ttf
+js/bootstrap/fonts/glyphicons-halflings-regular.woff
+
+
+//node.js包
+node_modules/iconv-lite/*.*
+node_modules/request/*.*
+node_modules/async/*.*
+node_modules/crypto/*.*
+node_modules/validator/*.*
+
+//各引擎解释器
+js/engine/cn_baidu.js    //中国百度
+
+

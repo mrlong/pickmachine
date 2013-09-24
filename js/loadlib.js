@@ -1,0 +1,10 @@
+JSLoader.loadJavaScript("js/jquery-2.0.3.min.js");
+//bootstrap
+JSLoader.loadJavaScript("js/bootstrap/js/bootstrap.js");
+JSLoader.loadStyleSheet("js/bootstrap/css/bootstrap.css");
+JSLoader.loadStyleSheet("js/main.css");
+JSLoader.loadJavaScript("js/jquery.dataTables.min.js");
+//Dialog
+JSLoader.loadJavaScript("js/jquery.artDialog.js");
+//引擎解释器
+JSLoader.loadJavaScript("js/engine/cn_baidu.js");
