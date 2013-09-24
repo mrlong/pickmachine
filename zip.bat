@@ -4,25 +4,21 @@ REM 将文件时行压缩之后生成文件拷贝到固定的目录下
 REM 
 REM ===============================================
 
-set todir="C:\node-webkit-v0.7.3-win-ia32"
+set todir=C:\node-webkit-v0.7.3-win-ia32
 set zipexe="C:\Program Files\WinRAR\WinRAR.exe"
-set nwexedir=node-webkit-v0.7.3-win-ia32
-set nwexe=%nwexedir%\nw.exe
+set nwexe=nw.exe
 set zipname=node-web.zip
-set exename="app.exe"
+
 
 del %zipname%
-del %nwexedir%\%zipname%
+del %todir%\%zipname%
 
 REM 合成文件 -r 表示包括子目录
 %zipexe% a -r %zipname% @zipfiles.lst
 
-copy %zipname%  %nwexedir%\%zipname%
-REM copy /b %nwexe%+%zipname% %exename%
+copy %zipname%  %todir%\%zipname%
 
-%nwexe% %zipname%
-
-REM %exename%
+%todir%\%nwexe% %todir%\%zipname%
 
 exit
 
