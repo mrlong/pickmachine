@@ -17,12 +17,12 @@ var http = require('http');
 var nurl = require('url');
 var fs   = require('fs');
 var util = require('util');
-var gui  = require('nw.gui');
 var iconv= require('iconv-lite');
 var request = require('request');
 var crypto2 = require('crypto');      //不知为什么定crypto就出错.
 var async = require('async');
 
+var gui  = require('nw.gui');
 var gcurwin = gui.Window.get(); //Get the current window
 
 //
@@ -138,8 +138,8 @@ function parsehtml(txt,curl,tr,aurls,obj){
     }
   };
 
-  if ((jhn.indexOf('www')==0) || (jhn.indexOf('bbs')==0) || (jhn.indexOf('new')==0)) {
-    jhn = jhn.substring(4,jhn.length)
+  if ((jhn.indexOf('www.')==0) || (jhn.indexOf('bbs.')==0) || (jhn.indexOf('new.')==0)) {
+    jhn = jhn.substring(5,jhn.length)
   };
   
   //<a>
@@ -246,6 +246,7 @@ function downurl(level,urls,tr,obj){
 
       $(HTML_ID_SEARCHIFRAME).show();
       $(HTML_CLASS_PROGDIV).show();
+
     }
 
     //结束事件
