@@ -1,4 +1,3 @@
-
 var jrowindex = 0;
 var cn_baidu_host = 'http://www.baidu.com';
 
@@ -25,7 +24,7 @@ function loadsearchdata(jsdata,validurl,callback){
     function(index) {
       var jdiv = $(this).find('.c-default');
       var jurl = gethost(jdiv.find('.g').text());
-      if ((jurl != '' ) && validurl(jurl) && (jrowindex<jsdata.count)) {
+      if ((jurl != '' ) && validurl(jurl,jsdata) && (jrowindex<jsdata.count)) {
         var jtitle=jdiv.find('h3 a').text();
         var jcontent=jdiv.find('.c-abstract').text();
         var jtr = $("<tr></tr>");

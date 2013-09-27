@@ -11,6 +11,7 @@ var HTML_ID_SEARCHDATA   = "#searchrow table tbody";  //这个是存放数据源
 var HTML_ID_SEARCHIFRAME = "#searchweb";              //显示面页的iframe
 var HTML_CLASS_PROGDIV   = ".progress" ;              //进度条div
 var HTML_CLASS_PROGBAR   = ".progress-bar";           //显示的进度条
+var HTML_ID_URLLIST      = "#urllist";
 
 //全局变理
 var http = require('http');
@@ -21,10 +22,11 @@ var iconv= require('iconv-lite');
 var request = require('request');
 var crypto2 = require('crypto');      //不知为什么定crypto就出错.
 var async = require('async');
-
 var gui  = require('nw.gui');
 var gcurwin = gui.Window.get(); //Get the current window
 
+//$.getScript("./js/util.js");
+document.write('<script type="text/javascript" src="./js/util.js"></script>');
 //
 // 格式:
 // [
@@ -45,48 +47,6 @@ var gcurwin = gui.Window.get(); //Get the current window
 //
 var jsondata={};jsondata.ver=1;jsondata.data=[];//保存数据
  
-
-//取出网址的host
-function gethost(url){
-  if(url==''){
-    return '';
-  };
-
-  var str = url.substring(0,url.indexOf("/"));
-    if (str.indexOf('http://')==-1){
-      str = 'http://' + str;
-  }
-  return str;
-};
-
-//有效网址
-function validurl(url){
-  var jhas=false;
-  var jurl=url.toLowerCase();
-  $.each(jsondata.data,function(index,obj){
-    if (jurl == obj.url){
-      jhas = true;
-      return false;
-    }
-  });
-
-  return jhas?false:true;
-}
-
-//数组的扩展功能
-Array.prototype.in_array = function(e) 
-{ 
-  for(i=0;i<this.length;i++){
-    if(this[i] == e)
-      return true;
-  }
-  return false;
-};
-Array.prototype.append=function(e){
-  this[this.length]=e;
-};
-
-
 //解释html内容
 //level 第多少层了.最大3层
 //curl 是当前网址。
@@ -102,7 +62,7 @@ function parsehtml(txt,curl,tr,aurls,obj){
 
   //提取页面上的邮箱
   var reg=/\b[A-Za-z0-9._%+-]+\s?@\s?(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,6}\b/ig;
-  var mails=reg.exec(txt);
+  var mails;//=reg.exec(txt);
   while(mails !=null){
     /*
       [
@@ -182,6 +142,7 @@ function downurl(level,urls,tr,obj){
   };*/
   var jurls=[];
   $.each(urls,function(index,value){
+    $(HTML_ID_URLLIST).append('<p>' + value + '</p>');
     var jp = nurl.parse(value);
     var options = {
         method: 'GET',
@@ -201,9 +162,12 @@ function downurl(level,urls,tr,obj){
         parsehtml(body,value,tr,jurls,obj);
       }
       if (index == urls.length -1 && level<4 && obj.email.length<10){
-        downurl(++level,jurls,tr,obj);     
-          //alert(jurls.length); 
-      }; 
+        downurl(++level,jurls,tr,obj);
+      }
+      else{
+        //写入完成
+        tr.find('td').addClass("alert-success");
+      } 
     });
 
     /*http.get(options, function(res) {
@@ -305,34 +269,45 @@ function downurl(level,urls,tr,obj){
         jitems.append(val);
       });
 
-      var q = async.queue(function(obj,pick,callback){
+      /*var q = async.queue(function(obj,pick,callback){
         pick(obj,callback);
-      },3);
+      },1);*/
+      var func=[]
+      $.each(jitems,function(index,value){
+        func.append(new pickmail(value,null));  
+      });
+      async.series(func, function(err, values) {
+        // do somethig with the err or values v1/v2/v3
+      });
 
       /**
       * 监听：如果某次push操作后，任务数将达到或超过worker数量时，将调用该函数
       */
-      q.saturated = function() {
+     /* q.saturated = function() {
         $(HTML_ID_MSGTXT).text('all workers to be used'+q.length());
-      }
+      }*/
 
       /**
       * 监听：当最后一个任务交给worker时，将调用该函数
       */
-      q.empty = function() {
+      /*q.empty = function() {
         $(HTML_ID_MSGTXT).text('no more tasks wating');
-      }
+      }*/
 
       /**
       * 监听：当所有任务都执行完以后，将调用该函数
       */
-      q.drain = function() {
+      /*q.drain = function() {
         $(HTML_ID_MSGTXT).text('all tasks have been processed');
-      }
+      }*/
 
-      $.each(jitems,function(index,value){
-        q.push(value,pickmail,function(err){});  
-      });
+      /*$.each(jitems,function(index,value){
+        q.push(value,pickmail,function(err){
+          if(err){
+            $(HTML_ID_MSGTXT).text('出错');
+          }
+        });  
+      });*/
 
     });
     //end 提取 

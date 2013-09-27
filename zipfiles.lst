@@ -19,6 +19,7 @@ js/loadlib.js
 js/main.css
 js/jquery.dataTables.min.js
 js/jquery.artDialog.js
+js/util.js
 
 //bootstrap
 js/bootstrap/js/bootstrap.js
