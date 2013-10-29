@@ -16,6 +16,6 @@
   
   },
   "webkit": {
-    "plugin": false
+    "plugin": true
   }
 }
